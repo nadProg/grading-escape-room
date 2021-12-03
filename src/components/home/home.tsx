@@ -7,7 +7,7 @@ import {
 import { QuestsCatalog } from './components/components';
 import * as S from './home.styled';
 
-const HomePage = () => (
+const HomePage: React.FC = () => (
   <MainLayout>
     <S.Main forwardedAs="main">
       <PageHeading>

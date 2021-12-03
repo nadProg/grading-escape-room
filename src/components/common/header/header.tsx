@@ -1,7 +1,7 @@
 import logo from 'assets/img/logo.svg';
 import * as S from './header.styled';
 
-const Header = () => (
+const Header: React.FC = () => (
   <S.StyledHeader>
     <S.HeaderWrapper>
       <S.Logo>

@@ -1,6 +1,6 @@
 import * as S from './page-title.styled';
 
-const PageTitle = ({ children, ...props }) => (
+const PageTitle: React.FC = ({ children, ...props }) => (
   <S.PageTitle {...props}>{children}</S.PageTitle>
 );
 

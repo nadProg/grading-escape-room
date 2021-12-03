@@ -8,7 +8,7 @@ import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
 
-const QuestsCatalog = () => (
+const QuestsCatalog: React.FC = () => (
   <>
     <S.Tabs>
       <S.TabItem>

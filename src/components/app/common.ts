@@ -1,4 +1,6 @@
-const appTheme = {
+import { DefaultTheme } from 'styled-components';
+
+const appTheme: DefaultTheme = {
   font: {
     mini: '12px',
     small: '13px',

@@ -1,6 +1,6 @@
 import * as S from './footer.styled';
 
-const Footer = () => (
+const Footer: React.FC = () => (
   <S.StyledFooter>
     <S.Socials>
       <S.SocialItem>

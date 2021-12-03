@@ -1,6 +1,6 @@
 import { Header, Footer } from 'components/common/common';
 
-const MainLayout = ({ children }) => (
+const MainLayout: React.FC = ({ children }) => (
   <>
     <Header />
     {children}

@@ -1,6 +1,6 @@
 import * as S from './page-subtext.styled';
 
-const PageSubtext = ({ children, ...props }) => (
+const PageSubtext: React.FC = ({ children, ...props }) => (
   <S.PageSubtext {...props}>{children}</S.PageSubtext>
 );
 
