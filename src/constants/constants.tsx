@@ -1,4 +1,10 @@
 import { ValuesOf } from 'utils/utils';
+import { ReactComponent as IconAllQuests } from 'assets/img/icon-all-quests.svg';
+import { ReactComponent as IconAdventures } from 'assets/img/icon-adventures.svg';
+import { ReactComponent as IconHorrors } from 'assets/img/icon-horrors.svg';
+import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
+import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
+import { ReactComponent as IconSciFi } from 'assets/img/icon-scifi.svg';
 
 export const AppRoute = {
   Root: () => '/',
@@ -65,6 +71,11 @@ export const Theme = {
   SciFi: 'sci-fi',
 } as const;
 
+export const FilterTheme = {
+  All: 'all',
+  ...Theme
+} as const;
+
 export const HumanizedLevel: {
   [key in ValuesOf<typeof Level>]: string;
 } = {
@@ -82,3 +93,19 @@ export const HumanizedTheme: {
   [Theme.Detective]: 'Детектив',
   [Theme.SciFi]: 'Sci-fi',
 };
+
+export const HumanizedFilter: {
+  [key in ValuesOf<typeof FilterTheme>]: string;
+} = {
+  [FilterTheme.All]: 'Все квесты',
+  ...HumanizedTheme
+};
+
+export const FilterIcon = {
+  [FilterTheme.All]: <IconAllQuests />,
+  [FilterTheme.Adventures]: <IconAdventures />,
+  [FilterTheme.Horror]: <IconHorrors />,
+  [FilterTheme.Mystic]: <IconMystic />,
+  [FilterTheme.Detective]: <IconDetective />,
+  [FilterTheme.SciFi]: <IconSciFi />,
+} as const;
