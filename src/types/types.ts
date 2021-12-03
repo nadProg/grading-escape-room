@@ -45,3 +45,8 @@ export type ThunkActionResult<Result = Promise<void>> = ThunkAction<
   AxiosInstance,
   Action
 >;
+
+export type ParamsWithId = {
+  [key: string]: string;
+  id: string;
+};

@@ -9,7 +9,7 @@ type QuestsCardProps = {
 };
 
 const QuestsCard: React.FC<QuestsCardProps> = ({ quest }) => {
-  const { title, level } = quest;
+  const { title, level, previewImg } = quest;
   const [minPeople, maxPeople] = quest.peopleCount;
 
   return (
@@ -17,7 +17,7 @@ const QuestsCard: React.FC<QuestsCardProps> = ({ quest }) => {
       <S.QuestItemLink to={AppRoute.DetailedQuest(quest.id)}>
         <S.Quest>
           <S.QuestImage
-            src={quest.previewImg}
+            src={`/${previewImg}`}
             width="344"
             height="232"
             alt={`квест ${title}`}
