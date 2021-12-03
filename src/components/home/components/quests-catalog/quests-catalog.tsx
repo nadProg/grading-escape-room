@@ -7,6 +7,7 @@ import { ReactComponent as IconScifi } from 'assets/img/icon-scifi.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
+import { AppRoute } from 'constants/constants';
 
 const QuestsCatalog: React.FC = () => (
   <>
@@ -56,7 +57,7 @@ const QuestsCatalog: React.FC = () => (
 
     <S.QuestsList>
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-sklep.jpg"
@@ -84,7 +85,7 @@ const QuestsCatalog: React.FC = () => (
       </S.QuestItem>
 
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-maniac.jpg"
@@ -112,7 +113,7 @@ const QuestsCatalog: React.FC = () => (
       </S.QuestItem>
 
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-ritual.jpg"
@@ -140,7 +141,7 @@ const QuestsCatalog: React.FC = () => (
       </S.QuestItem>
 
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-old-ceil.jpg"
@@ -168,7 +169,7 @@ const QuestsCatalog: React.FC = () => (
       </S.QuestItem>
 
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-final-frontier.jpg"
@@ -196,7 +197,7 @@ const QuestsCatalog: React.FC = () => (
       </S.QuestItem>
 
       <S.QuestItem>
-        <S.QuestItemLink to="/quest">
+        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
           <S.Quest>
             <S.QuestImage
               src="img/preview-house-in-the-woods.jpg"

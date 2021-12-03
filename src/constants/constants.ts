@@ -1,4 +1,34 @@
-import { ValuesOf } from './utils';
+import { ValuesOf } from 'utils/utils';
+
+export const AppRoute = {
+  Root: () => '/',
+  DetailedQuest: (id: string | number = ':id') => `/detailed-quest/${id}`,
+  Contacts: () => '/contacts',
+  NotFound: () => '/404',
+} as const;
+
+export const mainNavigationItems = [
+  {
+    path: AppRoute.Root(),
+    label: 'Квесты',
+  },
+  {
+    path: '#',
+    label: 'Новичкам',
+  },
+  {
+    path: '#',
+    label: 'Отзывы',
+  },
+  {
+    path: '#',
+    label: 'Акции',
+  },
+  {
+    path: AppRoute.Contacts(),
+    label: 'Контакты',
+  },
+];
 
 export const Level = {
   Easy: 'easy',

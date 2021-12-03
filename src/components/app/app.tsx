@@ -3,10 +3,13 @@ import {
   Switch,
   Route,
   BrowserRouter as Router,
+  Redirect,
 } from 'components/common/common';
+import { AppRoute } from 'constants/constants';
+import Home from 'components/home/home';
 import DetailedQuest from 'components/detailed-quest/detailed-quest';
 import Contacts from 'components/contacts/contacts';
-import Home from 'components/home/home';
+import NotFound from 'components/not-found/not-found';
 import { appTheme } from './common';
 import * as S from './app.styled';
 
@@ -15,14 +18,20 @@ const App: React.FC = () => (
     <S.GlobalStyle />
     <Router>
       <Switch>
-        <Route exact path="/quest">
+        <Route exact path={AppRoute.Root()}>
+          <Home />
+        </Route>
+        <Route exact path={AppRoute.DetailedQuest()}>
           <DetailedQuest />
         </Route>
-        <Route exact path="/contacts">
+        <Route exact path={AppRoute.Contacts()}>
           <Contacts />
         </Route>
-        <Route path="/">
-          <Home />
+        <Route path={AppRoute.NotFound()} exact>
+          <NotFound />
+        </Route>
+        <Route>
+          <Redirect to={AppRoute.NotFound()} />
         </Route>
       </Switch>
     </Router>

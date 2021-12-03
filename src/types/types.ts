@@ -1,6 +1,5 @@
-import { ValuesOf } from './utils';
-import { Level } from './constants';
-import { Theme } from './constants';
+import { ValuesOf } from 'utils/utils';
+import { Level, Theme } from 'constants/constants';
 
 export type Quest = {
   id: number;
