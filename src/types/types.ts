@@ -1,5 +1,9 @@
 import { ValuesOf } from 'utils/utils';
-import { Level, Theme } from 'constants/constants';
+import { FetchStatus, Level, Theme } from 'constants/constants';
+import { AxiosInstance } from 'axios';
+import { ThunkAction } from '@reduxjs/toolkit';
+import { rootReducer } from 'store/root-reducer';
+import { setAllQuests, setAllQuestsStatus, setCurrentQuest, setCurrentQuestStatus } from 'store/quests/quests-actions';
 
 export type Quest = {
   id: number;
@@ -19,3 +23,25 @@ export type Order = {
   phone: string;
   isLegal: boolean;
 };
+
+export type FetchStatusType = ValuesOf<typeof FetchStatus>;
+
+export type FetchedData<T = any> = {
+  data: T | null;
+  status: FetchStatusType;
+};
+
+export type State = ReturnType<typeof rootReducer>;
+
+export type Action =
+  | ReturnType<typeof setAllQuests>
+  | ReturnType<typeof setAllQuestsStatus>
+  | ReturnType<typeof setCurrentQuest>
+  | ReturnType<typeof setCurrentQuestStatus>;
+
+export type ThunkActionResult<Result = Promise<void>> = ThunkAction<
+  Result,
+  State,
+  AxiosInstance,
+  Action
+>;

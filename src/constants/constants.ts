@@ -13,6 +13,21 @@ export const APIRoute = {
   Orders: (id:string | number) => '/order',
 } as const;
 
+export const FetchStatus = {
+  Idle: 'IDLE',
+  Loading: 'LOADING',
+  Succeeded: 'SUCCEEDED',
+  Failed: 'FAILED',
+} as const;
+
+export const ActionType = {
+  SetFilter: 'filter/setFilter',
+  SetAllQuests: 'allQuests/setData',
+  SetAllQuestsStatus: 'allQuests/setStatus',
+  SetCurrentQuest: 'currentQuest/setData',
+  SetCurrentQuestStatus: 'currentQuest/setStatus',
+} as const;
+
 export const mainNavigationItems = [
   {
     path: AppRoute.Root(),

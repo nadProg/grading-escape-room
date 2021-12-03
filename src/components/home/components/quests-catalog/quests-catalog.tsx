@@ -4,227 +4,92 @@ import { ReactComponent as IconHorrors } from 'assets/img/icon-horrors.svg';
 import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
 import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
 import { ReactComponent as IconScifi } from 'assets/img/icon-scifi.svg';
-import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
-import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './quests-catalog.styled';
-import { AppRoute } from 'constants/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllQuestsData, getAllQuestsStatus } from 'store/quests/quests-selectors';
+import { getAllQuests } from 'store/quests/quests-api-actions';
+import { useEffect } from 'react';
+import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
+import NotFound from 'components/not-found/not-found';
+import QuestsCard from '../quest-card/quest-card';
 
-const QuestsCatalog: React.FC = () => (
-  <>
-    <S.Tabs>
-      <S.TabItem>
-        <S.TabBtn isActive>
-          <IconAllQuests />
-          <S.TabTitle>Все квесты</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+const QuestsCatalog: React.FC = () => {
+  const allQuestsStatus = useSelector(getAllQuestsStatus);
+  const allQuests = useSelector(getAllQuestsData);
 
-      <S.TabItem>
-        <S.TabBtn>
-          <IconAdventures />
-          <S.TabTitle>Приключения</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+  const dispatch = useDispatch();
 
-      <S.TabItem>
-        <S.TabBtn>
-          <IconHorrors />
-          <S.TabTitle>Ужасы</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+  const fetchAllQuests = () => {
+    dispatch(getAllQuests());
+  };
 
-      <S.TabItem>
-        <S.TabBtn>
-          <IconMystic />
-          <S.TabTitle>Мистика</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+  useEffect(() => {
+    if (isFetchIdle(allQuestsStatus)) {
+      fetchAllQuests();
+    }
+  }, []);
 
-      <S.TabItem>
-        <S.TabBtn>
-          <IconDetective />
-          <S.TabTitle>Детектив</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
+  if (isFetchNotReady(allQuestsStatus)) {
+    return <h1>Loading...</h1>;
+  }
 
-      <S.TabItem>
-        <S.TabBtn>
-          <IconScifi />
-          <S.TabTitle>Sci-fi</S.TabTitle>
-        </S.TabBtn>
-      </S.TabItem>
-    </S.Tabs>
+  if (isFetchError(allQuestsStatus) || !allQuests) {
+    return <NotFound />;
+  }
 
-    <S.QuestsList>
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-sklep.jpg"
-              width="344"
-              height="232"
-              alt="квест Склеп"
-            />
+  return (
+    <>
+      <S.Tabs>
+        <S.TabItem>
+          <S.TabBtn isActive>
+            <IconAllQuests />
+            <S.TabTitle>Все квесты</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
 
-            <S.QuestContent>
-              <S.QuestTitle>Склеп</S.QuestTitle>
+        <S.TabItem>
+          <S.TabBtn>
+            <IconAdventures />
+            <S.TabTitle>Приключения</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
 
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  2–5 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  сложный
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
+        <S.TabItem>
+          <S.TabBtn>
+            <IconHorrors />
+            <S.TabTitle>Ужасы</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
 
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-maniac.jpg"
-              width="344"
-              height="232"
-              alt="квест Маньяк"
-            />
+        <S.TabItem>
+          <S.TabBtn>
+            <IconMystic />
+            <S.TabTitle>Мистика</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
 
-            <S.QuestContent>
-              <S.QuestTitle>Маньяк</S.QuestTitle>
+        <S.TabItem>
+          <S.TabBtn>
+            <IconDetective />
+            <S.TabTitle>Детектив</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
 
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  3–6 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  средний
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
+        <S.TabItem>
+          <S.TabBtn>
+            <IconScifi />
+            <S.TabTitle>Sci-fi</S.TabTitle>
+          </S.TabBtn>
+        </S.TabItem>
+      </S.Tabs>
 
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-ritual.jpg"
-              width="344"
-              height="232"
-              alt="квест Ритуал"
-            />
-
-            <S.QuestContent>
-              <S.QuestTitle>Ритуал</S.QuestTitle>
-
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  3–5 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  легкий
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
-
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-old-ceil.jpg"
-              width="344"
-              height="232"
-              alt="квест История призраков"
-            />
-
-            <S.QuestContent>
-              <S.QuestTitle>История призраков</S.QuestTitle>
-
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  5–6 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  легкий
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
-
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-final-frontier.jpg"
-              width="344"
-              height="232"
-              alt="квест Тайны старого особняка"
-            />
-
-            <S.QuestContent>
-              <S.QuestTitle>Тайны старого особняка</S.QuestTitle>
-
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  2–3 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  легкий
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
-
-      <S.QuestItem>
-        <S.QuestItemLink to={AppRoute.DetailedQuest()}>
-          <S.Quest>
-            <S.QuestImage
-              src="img/preview-house-in-the-woods.jpg"
-              width="344"
-              height="232"
-              alt="квест Хижина в лесу"
-            />
-
-            <S.QuestContent>
-              <S.QuestTitle>Хижина в лесу</S.QuestTitle>
-
-              <S.QuestFeatures>
-                <S.QuestFeatureItem>
-                  <IconPerson />
-                  4–7 чел
-                </S.QuestFeatureItem>
-                <S.QuestFeatureItem>
-                  <IconPuzzle />
-                  средний
-                </S.QuestFeatureItem>
-              </S.QuestFeatures>
-            </S.QuestContent>
-          </S.Quest>
-        </S.QuestItemLink>
-      </S.QuestItem>
-    </S.QuestsList>
-  </>
-);
+      <S.QuestsList>
+        {
+          allQuests.map((quest) => <QuestsCard key={quest.id} quest={quest} />)
+        }
+      </S.QuestsList>
+    </>
+  );
+};
 
 export default QuestsCatalog;
