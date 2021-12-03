@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { MainLayout, Redirect } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
@@ -6,7 +6,10 @@ import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
 import * as S from './detailed-quest.styled';
 import { BookingModal } from './components/components';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCurrentQuestData, getCurrentQuestStatus } from 'store/quests/quests-selectors';
+import {
+  getCurrentQuestData,
+  getCurrentQuestStatus,
+} from 'store/quests/quests-selectors';
 import { useIdParam } from 'hooks/use-id-param';
 import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
 import { getCurrentQuest } from 'store/quests/quests-api-actions';
@@ -41,6 +44,14 @@ const DetailedQuest: React.FC = () => {
     }
   }, [quest?.id, questId]);
 
+  const onBookingBtnClick = () => {
+    setIsBookingModalOpened(true);
+  };
+
+  const onBookingModalClose = useCallback(() => {
+    setIsBookingModalOpened(false);
+  }, []);
+
   if (error || isFetchError(questStatus)) {
     return <Redirect to={AppRoute.NotFound()} />;
   }
@@ -58,10 +69,6 @@ const DetailedQuest: React.FC = () => {
   if (!quest) {
     return <Redirect to={AppRoute.NotFound()} />;
   }
-
-  const onBookingBtnClick = () => {
-    setIsBookingModalOpened(true);
-  };
 
   const { coverImg, title, type, level, duration, description } = quest;
   const [minPeople, maxPeople] = quest.peopleCount;
@@ -90,7 +97,9 @@ const DetailedQuest: React.FC = () => {
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPerson width="19" height="24" />
-                <S.FeatureTitle>{minPeople}–{maxPeople} чел</S.FeatureTitle>
+                <S.FeatureTitle>
+                  {minPeople}–{maxPeople} чел
+                </S.FeatureTitle>
               </S.FeaturesItem>
               <S.FeaturesItem>
                 <IconPuzzle width="24" height="24" />
@@ -98,9 +107,7 @@ const DetailedQuest: React.FC = () => {
               </S.FeaturesItem>
             </S.Features>
 
-            <S.QuestDescription>
-              {description}
-            </S.QuestDescription>
+            <S.QuestDescription>{description}</S.QuestDescription>
 
             <S.QuestBookingBtn onClick={onBookingBtnClick}>
               Забронировать
@@ -108,7 +115,7 @@ const DetailedQuest: React.FC = () => {
           </S.PageDescription>
         </S.PageContentWrapper>
 
-        {isBookingModalOpened && <BookingModal />}
+        {isBookingModalOpened && <BookingModal onClose={onBookingModalClose} />}
       </S.Main>
     </MainLayout>
   );

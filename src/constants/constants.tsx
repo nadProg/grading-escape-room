@@ -6,6 +6,10 @@ import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
 import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
 import { ReactComponent as IconSciFi } from 'assets/img/icon-scifi.svg';
 
+export const KeyCode = {
+  Escape: 'Escape',
+} as const;
+
 export const AppRoute = {
   Root: () => '/',
   DetailedQuest: (id: string | number = ':id') => `/detailed-quest/${id}`,
