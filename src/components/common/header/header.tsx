@@ -20,34 +20,13 @@ const Header: React.FC = () => {
 
         <S.Navigation>
           <S.Links>
-            {mainNavigationItems.map(({path, label}) => (
+            {mainNavigationItems.map(({ path, label }) => (
               <S.LinkItem key={label}>
                 <S.Link $isActiveLink={path === currentPath} to={path}>
                   {label}
                 </S.Link>
               </S.LinkItem>
             ))}
-            {/* <S.LinkItem>
-              <S.Link $isActiveLink to={AppRoute.Root()}>
-                Квесты
-              </S.Link>
-            </S.LinkItem>
-
-            <S.LinkItem>
-              <S.Link to="#">Новичкам</S.Link>
-            </S.LinkItem>
-
-            <S.LinkItem>
-              <S.Link to="#">Отзывы</S.Link>
-            </S.LinkItem>
-
-            <S.LinkItem>
-              <S.Link to="#">Акции</S.Link>
-            </S.LinkItem>
-
-            <S.LinkItem>
-              <S.Link to={AppRoute.Contacts()}>Контакты</S.Link>
-            </S.LinkItem> */}
           </S.Links>
         </S.Navigation>
         <S.Phone href="tel:88003335599">8 (800) 333-55-99</S.Phone>

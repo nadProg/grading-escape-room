@@ -7,6 +7,12 @@ export const AppRoute = {
   NotFound: () => '/404',
 } as const;
 
+export const APIRoute = {
+  Quests: () => '/quests',
+  Quest: (id:string | number) => `/quests/${id}`,
+  Orders: (id:string | number) => '/order',
+} as const;
+
 export const mainNavigationItems = [
   {
     path: AppRoute.Root(),
