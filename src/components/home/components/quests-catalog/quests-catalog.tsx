@@ -4,7 +4,6 @@ import { getAllQuestsData, getAllQuestsStatus, getFilteredQuests } from 'store/q
 import { getAllQuests } from 'store/quests/quests-api-actions';
 import { useEffect } from 'react';
 import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
-import NotFound from 'components/not-found/not-found';
 import QuestsCard from '../quest-card/quest-card';
 import FilterTabs from '../filter-tabs/filter-tabs';
 import { Message } from 'components/common/common';
@@ -31,7 +30,7 @@ const QuestsCatalog: React.FC = () => {
   }
 
   if (isFetchError(allQuestsStatus) || !allQuests) {
-    return <NotFound />;
+    return <Message>Не удалось загрузить квесты</Message>;
   }
 
   return (
