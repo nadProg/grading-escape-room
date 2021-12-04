@@ -5,13 +5,13 @@ import { Point } from '../types/types';
 const IconSize = {
   Width: 48,
   Height: 61,
-}
+};
 
 const ICON_OPTIONS: BaseIconOptions = {
   iconUrl: '/img/icon-marker.svg',
   iconSize: [IconSize.Width, IconSize.Height],
   iconAnchor: [IconSize.Width / 2, IconSize.Height]
-}
+};
 
 type UseMapOptions = {
   withMarker?: boolean;

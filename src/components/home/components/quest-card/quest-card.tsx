@@ -9,8 +9,7 @@ type QuestsCardProps = {
 };
 
 const QuestsCard: React.FC<QuestsCardProps> = ({ quest }) => {
-  const { title, level, previewImg } = quest;
-  const [minPeople, maxPeople] = quest.peopleCount;
+  const { title, level, previewImg, peopleCount } = quest;
 
   return (
     <S.QuestItem>
@@ -29,7 +28,7 @@ const QuestsCard: React.FC<QuestsCardProps> = ({ quest }) => {
             <S.QuestFeatures>
               <S.QuestFeatureItem>
                 <IconPerson />
-                {minPeople}–{maxPeople} чел
+                {peopleCount.min}–{peopleCount.max} чел
               </S.QuestFeatureItem>
               <S.QuestFeatureItem>
                 <IconPuzzle />

@@ -11,7 +11,7 @@ import {
 } from 'store/quests/quests-actions';
 import { setOrderStatus } from 'store/order/order-actions';
 
-export type Quest = {
+export type ServerQuest = {
   id: number;
   title: string;
   description: string;
@@ -20,6 +20,22 @@ export type Quest = {
   type: ValuesOf<typeof Theme>;
   level: ValuesOf<typeof Level>;
   peopleCount: [number, number];
+  duration: number;
+};
+
+
+export type Quest = {
+  id: number;
+  title: string;
+  description: string;
+  previewImg: string;
+  coverImg: string;
+  theme: ValuesOf<typeof Theme>;
+  level: ValuesOf<typeof Level>;
+  peopleCount: {
+    min: number,
+    max: number,
+  };
   duration: number;
 };
 

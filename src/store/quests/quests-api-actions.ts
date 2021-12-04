@@ -1,5 +1,6 @@
 import { APIRoute, FetchStatus } from 'constants/constants';
-import { Quest, ThunkActionResult } from 'types/types';
+import { adaptQuestToClient } from 'services/adapters';
+import { ServerQuest, ThunkActionResult } from 'types/types';
 import { setAllQuests, setAllQuestsStatus, setCurrentQuest, setCurrentQuestStatus } from './quests-actions';
 
 export const getAllQuests =
@@ -8,7 +9,9 @@ export const getAllQuests =
       dispatch(setAllQuestsStatus(FetchStatus.Loading));
 
       try {
-        const { data: quests } = await api.get<Quest[]>(APIRoute.Quests());
+        const { data: serverQuests } = await api.get<ServerQuest[]>(APIRoute.Quests());
+
+        const quests = serverQuests.map((serverQuest) => adaptQuestToClient(serverQuest));
 
         dispatch(setAllQuests(quests));
         dispatch(setAllQuestsStatus(FetchStatus.Succeeded));
@@ -23,7 +26,8 @@ export const getCurrentQuest = (questId: number): ThunkActionResult =>
     dispatch(setCurrentQuestStatus(FetchStatus.Loading));
 
     try {
-      const { data: quest } = await api.get<Quest>(APIRoute.Quest(questId));
+      const { data: serverQuest } = await api.get<ServerQuest>(APIRoute.Quest(questId));
+      const quest = adaptQuestToClient(serverQuest);
 
       dispatch(setCurrentQuest(quest));
       dispatch(setCurrentQuestStatus(FetchStatus.Succeeded));

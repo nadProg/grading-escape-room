@@ -26,6 +26,6 @@ export const getFilteredQuests = createSelector(
       return [ ...quests];
     }
 
-    return quests.filter((quest) => quest.type === filter);
+    return quests.filter((quest) => quest.theme === filter);
   },
 );

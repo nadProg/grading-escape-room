@@ -78,8 +78,7 @@ const DetailedQuest: React.FC = () => {
     return <Redirect to={AppRoute.NotFound()} />;
   }
 
-  const { coverImg, title, type, level, duration, description } = quest;
-  const [minPeople, maxPeople] = quest.peopleCount;
+  const { coverImg, title, theme, level, duration, description, peopleCount } = quest;
 
   return (
     <MainLayout>
@@ -94,7 +93,7 @@ const DetailedQuest: React.FC = () => {
         <S.PageContentWrapper>
           <S.PageHeading>
             <S.PageTitle>{title}</S.PageTitle>
-            <S.PageSubtitle>{HumanizedTheme[type]}</S.PageSubtitle>
+            <S.PageSubtitle>{HumanizedTheme[theme]}</S.PageSubtitle>
           </S.PageHeading>
 
           <S.PageDescription>
@@ -106,7 +105,7 @@ const DetailedQuest: React.FC = () => {
               <S.FeaturesItem>
                 <IconPerson width="19" height="24" />
                 <S.FeatureTitle>
-                  {minPeople}–{maxPeople} чел
+                  {peopleCount.min}–{peopleCount.max} чел
                 </S.FeatureTitle>
               </S.FeaturesItem>
               <S.FeaturesItem>
