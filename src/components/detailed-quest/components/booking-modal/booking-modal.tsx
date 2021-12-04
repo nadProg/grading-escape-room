@@ -5,7 +5,7 @@ import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
 import { FetchStatus, KeyCode } from 'constants/constants';
 import { postOrder } from 'store/order/order-api-actions';
 import { getOrderStatus } from 'store/order/order-selector';
-import { isFetchSuccess } from 'utils/utils';
+import { isFetchLoading, isFetchSuccess } from 'utils/utils';
 import { setOrderStatus } from 'store/order/order-actions';
 import { adaptOrderDataToServer } from 'services/adapters';
 
@@ -105,7 +105,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
               required
             />
           </S.BookingField>
-          <S.BookingSubmit disabled={orderStatus === FetchStatus.Loading || undefined}>Отправить заявку</S.BookingSubmit>
+          <S.BookingSubmit disabled={isFetchLoading(orderStatus) || undefined}>Отправить заявку</S.BookingSubmit>
           <S.BookingCheckboxWrapper>
             <S.BookingCheckboxInput
               type="checkbox"

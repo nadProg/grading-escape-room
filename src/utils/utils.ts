@@ -9,6 +9,9 @@ export const isFetchIdle = (status: FetchStatusType): boolean =>
 export const isFetchNotReady = (status: FetchStatusType): boolean =>
   status === FetchStatus.Idle || status === FetchStatus.Loading;
 
+export const isFetchLoading = (status: FetchStatusType): boolean =>
+  status === FetchStatus.Loading;
+
 export const isFetchError = (status: FetchStatusType): boolean =>
   status === FetchStatus.Failed;
 

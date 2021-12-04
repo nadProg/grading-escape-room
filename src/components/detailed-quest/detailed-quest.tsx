@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { MainLayout, Redirect } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
@@ -11,15 +11,17 @@ import {
   getCurrentQuestStatus,
 } from 'store/quests/quests-selectors';
 import { useIdParam } from 'hooks/use-id-param';
-import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
+import { isFetchError, isFetchIdle, isFetchNotReady, isFetchSuccess } from 'utils/utils';
 import { getCurrentQuest } from 'store/quests/quests-api-actions';
-import { AppRoute, HumanizedLevel, HumanizedTheme } from 'constants/constants';
+import { AppRoute, FetchStatus, HumanizedLevel, HumanizedTheme } from 'constants/constants';
+import { setCurrentQuestStatus } from 'store/quests/quests-actions';
 
 const DetailedQuest: React.FC = () => {
   const { id: questId, error } = useIdParam();
 
   const quest = useSelector(getCurrentQuestData);
   const questStatus = useSelector(getCurrentQuestStatus);
+  const questStatusRef = useRef(questStatus);
 
   const [isBookingModalOpened, setIsBookingModalOpened] = useState(false);
 
@@ -43,6 +45,12 @@ const DetailedQuest: React.FC = () => {
       getCurrentQuest(questId);
     }
   }, [quest?.id, questId]);
+
+  useEffect(() => () => {
+    if (!isFetchSuccess(questStatusRef.current)) {
+      dispatch(setCurrentQuestStatus(FetchStatus.Idle));
+    }
+  }, []);
 
   const onBookingBtnClick = () => {
     setIsBookingModalOpened(true);
