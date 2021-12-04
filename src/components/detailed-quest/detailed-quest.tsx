@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { MainLayout, Redirect } from 'components/common/common';
+import { Message, MainLayout, Redirect } from 'components/common/common';
 import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
@@ -68,7 +68,7 @@ const DetailedQuest: React.FC = () => {
     return (
       <MainLayout>
         <S.Main>
-          <h1>Loading...</h1>
+          <Message />
         </S.Main>
       </MainLayout>
     );

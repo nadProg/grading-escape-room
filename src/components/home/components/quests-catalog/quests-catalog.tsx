@@ -7,6 +7,7 @@ import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
 import NotFound from 'components/not-found/not-found';
 import QuestsCard from '../quest-card/quest-card';
 import FilterTabs from '../filter-tabs/filter-tabs';
+import { Message } from 'components/common/common';
 
 const QuestsCatalog: React.FC = () => {
   const allQuestsStatus = useSelector(getAllQuestsStatus);
@@ -26,7 +27,7 @@ const QuestsCatalog: React.FC = () => {
   }, []);
 
   if (isFetchNotReady(allQuestsStatus)) {
-    return <h1>Loading...</h1>;
+    return <Message />;
   }
 
   if (isFetchError(allQuestsStatus) || !allQuests) {
