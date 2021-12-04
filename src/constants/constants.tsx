@@ -5,6 +5,7 @@ import { ReactComponent as IconHorrors } from 'assets/img/icon-horrors.svg';
 import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
 import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
 import { ReactComponent as IconSciFi } from 'assets/img/icon-scifi.svg';
+import { Point } from 'types/types';
 
 export const KeyCode = {
   Escape: 'Escape',
@@ -114,3 +115,9 @@ export const FilterIcon = {
   [FilterTheme.Detective]: <IconDetective />,
   [FilterTheme.SciFi]: <IconSciFi />,
 } as const;
+
+export const CONTACT_ADDRESS: Point = {
+  lat: 59.96814853626141,
+  lng: 30.316508091844835,
+  zoom: 15.5,
+};

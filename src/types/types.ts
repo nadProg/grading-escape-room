@@ -57,3 +57,9 @@ export type ParamsWithId = {
   [key: string]: string;
   id: string;
 };
+
+export type Point = {
+  lat: number;
+  lng: number;
+  zoom: number;
+};

@@ -1,57 +1,59 @@
+import { useRef } from 'react';
+import useMap from 'hooks/use-map';
 import { MainLayout, PageTitle, PageSubtext } from 'components/common/common';
-import contactsMap from 'assets/img/contacts-map.jpg';
 import * as S from './contacts.styled';
+import { CONTACT_ADDRESS } from 'constants/constants';
+import 'leaflet/dist/leaflet.css';
 
-const Contacts: React.FC = () => (
-  <MainLayout>
-    <S.Main>
-      <S.ContentWrapper>
-        <S.PageHeading>
-          <PageTitle>Контакты</PageTitle>
-          <PageSubtext>квесты в Санкт-Петербурге</PageSubtext>
-        </S.PageHeading>
+const Contacts: React.FC = () => {
+  const mapRef = useRef(null);
 
-        <S.Contacts>
-          <S.ContactsList>
-            <S.ContactTitle>Адрес</S.ContactTitle>
-            <S.ContactValue>
-              <S.ContactAddress>
-                Санкт-Петербург,
-                <br />
-                Набережная реки Карповка, д 5
-              </S.ContactAddress>
-            </S.ContactValue>
+  useMap(mapRef, CONTACT_ADDRESS, { withMarker: true });
 
-            <S.ContactTitle>Режим работы</S.ContactTitle>
-            <S.ContactValue>Ежедневно, с 9:00 до 20:00</S.ContactValue>
+  return (
+    <MainLayout>
+      <S.Main>
+        <S.ContentWrapper>
+          <S.PageHeading>
+            <PageTitle>Контакты</PageTitle>
+            <PageSubtext>квесты в Санкт-Петербурге</PageSubtext>
+          </S.PageHeading>
 
-            <S.ContactTitle>Телефон</S.ContactTitle>
-            <S.ContactValue>
-              <S.ContactLink href="tel:8 (800) 333-55-99">
-                8 (800) 333-55-99
-              </S.ContactLink>
-            </S.ContactValue>
+          <S.Contacts>
+            <S.ContactsList>
+              <S.ContactTitle>Адрес</S.ContactTitle>
+              <S.ContactValue>
+                <S.ContactAddress>
+                  Санкт-Петербург,
+                  <br />
+                  Набережная реки Карповка, д 5
+                </S.ContactAddress>
+              </S.ContactValue>
 
-            <S.ContactTitle>E-mail</S.ContactTitle>
-            <S.ContactValue>
-              <S.ContactLink href="mailto:info@escape-room.ru">
-                info@escape-room.ru
-              </S.ContactLink>
-            </S.ContactValue>
-          </S.ContactsList>
+              <S.ContactTitle>Режим работы</S.ContactTitle>
+              <S.ContactValue>Ежедневно, с 9:00 до 20:00</S.ContactValue>
 
-          <S.ContactsMap>
-            <S.ContactsMapImage
-              src={contactsMap}
-              alt="мы находимся по адресу Санкт-Петербург, Набережная реки Карповка, д 5"
-              width="649"
-              height="336"
-            />
-          </S.ContactsMap>
-        </S.Contacts>
-      </S.ContentWrapper>
-    </S.Main>
-  </MainLayout>
-);
+              <S.ContactTitle>Телефон</S.ContactTitle>
+              <S.ContactValue>
+                <S.ContactLink href="tel:8 (800) 333-55-99">
+                  8 (800) 333-55-99
+                </S.ContactLink>
+              </S.ContactValue>
+
+              <S.ContactTitle>E-mail</S.ContactTitle>
+              <S.ContactValue>
+                <S.ContactLink href="mailto:info@escape-room.ru">
+                  info@escape-room.ru
+                </S.ContactLink>
+              </S.ContactValue>
+            </S.ContactsList>
+
+            <S.ContactsMap ref={mapRef} />
+          </S.Contacts>
+        </S.ContentWrapper>
+      </S.Main>
+    </MainLayout>
+  );
+};
 
 export default Contacts;
