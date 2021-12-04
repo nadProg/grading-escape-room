@@ -86,10 +86,9 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
               id="booking-phone"
               name="booking-phone"
               placeholder="Телефон"
-              pattern="^[0-9]+$"
-              title="Номер телефона должен состоять только из цифр"
+              pattern="[0-9]{10}"
+              title="Номер телефона должен состоять из десяти цифр"
               maxLength={10}
-              minLength={10}
               required
             />
           </S.BookingField>
