@@ -20,7 +20,7 @@ export const AppRoute = {
 export const APIRoute = {
   Quests: () => '/quests',
   Quest: (id:string | number) => `/quests/${id}`,
-  Orders: (id:string | number) => '/order',
+  Orders: () => '/orders',
 } as const;
 
 export const FetchStatus = {
@@ -31,6 +31,7 @@ export const FetchStatus = {
 } as const;
 
 export const ActionType = {
+  SetOrderStatus: 'order/setStatus',
   SetFilter: 'filter/setFilter',
   SetAllQuests: 'allQuests/setData',
   SetAllQuestsStatus: 'allQuests/setStatus',

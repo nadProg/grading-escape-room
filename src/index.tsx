@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
 import { configureStore } from '@reduxjs/toolkit';
 import App from 'components/app/app';
 import { createAPI } from 'services/api';
@@ -22,6 +23,7 @@ render(
   <StrictMode>
     <Provider store={store}>
       <App />
+      <Toaster position="top-right" />
     </Provider>
   </StrictMode>,
   document.getElementById('root'),

@@ -130,8 +130,14 @@ const BookingSubmit = styled(Button)`
   background-color: ${({ theme }) => theme.color.pinkSwan};
 
   &:focus,
-  &:hover {
+  &:hover,
+  &:disabled {
     background-color: ${({ theme }) => theme.color.gray};
+  }
+
+  &:disabled {
+    opacity: 0.75;
+    cursor: default;
   }
 `;
 

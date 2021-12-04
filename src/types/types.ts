@@ -3,7 +3,13 @@ import { FetchStatus, Level, Theme } from 'constants/constants';
 import { AxiosInstance } from 'axios';
 import { ThunkAction } from '@reduxjs/toolkit';
 import { rootReducer } from 'store/root-reducer';
-import { setAllQuests, setAllQuestsStatus, setCurrentQuest, setCurrentQuestStatus } from 'store/quests/quests-actions';
+import {
+  setAllQuests,
+  setAllQuestsStatus,
+  setCurrentQuest,
+  setCurrentQuestStatus,
+} from 'store/quests/quests-actions';
+import { setOrderStatus } from 'store/order/order-actions';
 
 export type Quest = {
   id: number;
@@ -17,7 +23,7 @@ export type Quest = {
   duration: number;
 };
 
-export type Order = {
+export type OrderPost = {
   name: string;
   peopleCount: number;
   phone: string;
@@ -34,6 +40,7 @@ export type FetchedData<T = any> = {
 export type State = ReturnType<typeof rootReducer>;
 
 export type Action =
+  | ReturnType<typeof setOrderStatus>
   | ReturnType<typeof setAllQuests>
   | ReturnType<typeof setAllQuestsStatus>
   | ReturnType<typeof setCurrentQuest>

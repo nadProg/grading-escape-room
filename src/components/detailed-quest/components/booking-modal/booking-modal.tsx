@@ -1,13 +1,24 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { FormEvent, useCallback, useEffect, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import * as S from './booking-modal.styled';
 import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
-import { KeyCode } from 'constants/constants';
+import { FetchStatus, KeyCode } from 'constants/constants';
+import { postOrder } from 'store/order/order-api-actions';
+import { getOrderStatus } from 'store/order/order-selector';
+import { isFetchSuccess } from 'utils/utils';
+import { setOrderStatus } from 'store/order/order-actions';
+import { adaptOrderDataToServer } from 'services/adapters';
 
 type BookingModalProps = {
   onClose: () => void;
 };
 
 const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const dispatch = useDispatch();
+
+  const orderStatus = useSelector(getOrderStatus);
+
   const onDocumentKeydown = useCallback(({ code }: KeyboardEvent) => {
     if (code === KeyCode.Escape) {
       onClose();
@@ -21,6 +32,26 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isFetchSuccess(orderStatus)) {
+      onClose();
+      dispatch(setOrderStatus(FetchStatus.Idle));
+    }
+  }, [orderStatus]);
+
+  const onFormSubmit = (evt: FormEvent) => {
+    evt.preventDefault();
+
+    if (!formRef.current) {
+      return;
+    }
+
+    const formData = new FormData(formRef.current);
+    const order = adaptOrderDataToServer(formData);
+
+    dispatch(postOrder(order));
+  };
+
   return (
     <S.BlockLayer>
       <S.Modal>
@@ -30,9 +61,11 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
         </S.ModalCloseBtn>
         <S.ModalTitle>Оставить заявку</S.ModalTitle>
         <S.BookingForm
+          ref={formRef}
           action="https://echo.htmlacademy.ru"
           method="post"
           id="booking-form"
+          onSubmit={onFormSubmit}
         >
           <S.BookingField>
             <S.BookingLabel htmlFor="booking-name">Ваше Имя</S.BookingLabel>
@@ -53,6 +86,10 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
               id="booking-phone"
               name="booking-phone"
               placeholder="Телефон"
+              pattern="^[0-9]+$"
+              title="Номер телефона должен состоять только из цифр"
+              maxLength={10}
+              minLength={10}
               required
             />
           </S.BookingField>
@@ -68,7 +105,7 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
               required
             />
           </S.BookingField>
-          <S.BookingSubmit>Отправить заявку</S.BookingSubmit>
+          <S.BookingSubmit disabled={orderStatus === FetchStatus.Loading || undefined}>Отправить заявку</S.BookingSubmit>
           <S.BookingCheckboxWrapper>
             <S.BookingCheckboxInput
               type="checkbox"
