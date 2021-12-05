@@ -1,7 +1,7 @@
-import { ValuesOf } from 'utils/utils';
-import { FetchStatus, Level, Theme } from 'constants/constants';
 import { AxiosInstance } from 'axios';
 import { ThunkAction } from '@reduxjs/toolkit';
+import { ValuesOf } from 'utils/utils';
+import { FetchStatus, Level, Theme } from 'constants/constants';
 import { rootReducer } from 'store/root-reducer';
 import {
   setAllQuests,
@@ -22,7 +22,6 @@ export type ServerQuest = {
   peopleCount: [number, number];
   duration: number;
 };
-
 
 export type Quest = {
   id: number;
@@ -62,8 +61,8 @@ export type Action =
   | ReturnType<typeof setCurrentQuest>
   | ReturnType<typeof setCurrentQuestStatus>;
 
-export type ThunkActionResult<Result = Promise<void>> = ThunkAction<
-  Result,
+export type ThunkActionResult<ReturnType = Promise<void>> = ThunkAction<
+  ReturnType,
   State,
   AxiosInstance,
   Action

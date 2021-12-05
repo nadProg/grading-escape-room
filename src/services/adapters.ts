@@ -1,8 +1,9 @@
+import { BookingData } from 'constants/constants';
 import { OrderPost, Quest, ServerQuest } from 'types/types';
 
-export const adaptQuestToClient = (serverQuest: ServerQuest): Quest => {
+const adaptQuestToClient = (serverQuest: ServerQuest): Quest => {
   const clientQuest: {
-    [key: string]: number | string | number[] | { min: number, max: number },
+    [key: string]: number | string | number[] | { min: number; max: number };
   } = { ...serverQuest };
 
   clientQuest.peopleCount = {
@@ -13,18 +14,19 @@ export const adaptQuestToClient = (serverQuest: ServerQuest): Quest => {
   clientQuest.theme = clientQuest.type;
 
   delete clientQuest.type;
+
   return clientQuest as Quest;
 };
 
-const adaptOrderDataToServer = (data: FormData): OrderPost => {
+const adaptBookingDataToServer = (data: FormData): OrderPost => {
   const order: OrderPost = {
-    name: String(data.get('booking-name')),
-    phone: String(data.get('booking-phone')),
-    peopleCount: Number(data.get('booking-people')),
-    isLegal: !!data.get('booking-legal'),
+    name: String(data.get(BookingData.Name)),
+    phone: String(data.get(BookingData.Phone)),
+    peopleCount: Number(data.get(BookingData.People)),
+    isLegal: Boolean(data.get(BookingData.Legal)),
   };
 
   return order;
 };
 
-export { adaptOrderDataToServer };
+export { adaptQuestToClient, adaptBookingDataToServer };

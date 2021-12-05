@@ -1,7 +1,12 @@
 import { APIRoute, FetchStatus } from 'constants/constants';
 import { adaptQuestToClient } from 'services/adapters';
 import { ServerQuest, ThunkActionResult } from 'types/types';
-import { setAllQuests, setAllQuestsStatus, setCurrentQuest, setCurrentQuestStatus } from './quests-actions';
+import {
+  setAllQuests,
+  setAllQuestsStatus,
+  setCurrentQuest,
+  setCurrentQuestStatus,
+} from './quests-actions';
 
 export const getAllQuests =
   (): ThunkActionResult =>
@@ -9,9 +14,13 @@ export const getAllQuests =
       dispatch(setAllQuestsStatus(FetchStatus.Loading));
 
       try {
-        const { data: serverQuests } = await api.get<ServerQuest[]>(APIRoute.Quests());
+        const { data: serverQuests } = await api.get<ServerQuest[]>(
+          APIRoute.Quests(),
+        );
 
-        const quests = serverQuests.map((serverQuest) => adaptQuestToClient(serverQuest));
+        const quests = serverQuests.map((serverQuest) =>
+          adaptQuestToClient(serverQuest),
+        );
 
         dispatch(setAllQuests(quests));
         dispatch(setAllQuestsStatus(FetchStatus.Succeeded));
@@ -20,19 +29,20 @@ export const getAllQuests =
       }
     };
 
+export const getCurrentQuest =
+  (questId: number): ThunkActionResult =>
+    async (dispatch, _getState, api): Promise<void> => {
+      dispatch(setCurrentQuestStatus(FetchStatus.Loading));
 
-export const getCurrentQuest = (questId: number): ThunkActionResult =>
-  async (dispatch, _getState, api): Promise<void> => {
-    dispatch(setCurrentQuestStatus(FetchStatus.Loading));
+      try {
+        const { data: serverQuest } = await api.get<ServerQuest>(
+          APIRoute.Quest(questId),
+        );
+        const quest = adaptQuestToClient(serverQuest);
 
-    try {
-      const { data: serverQuest } = await api.get<ServerQuest>(APIRoute.Quest(questId));
-      const quest = adaptQuestToClient(serverQuest);
-
-      dispatch(setCurrentQuest(quest));
-      dispatch(setCurrentQuestStatus(FetchStatus.Succeeded));
-
-    } catch (error) {
-      dispatch(setCurrentQuestStatus(FetchStatus.Failed));
-    }
-  };
+        dispatch(setCurrentQuest(quest));
+        dispatch(setCurrentQuestStatus(FetchStatus.Succeeded));
+      } catch (error) {
+        dispatch(setCurrentQuestStatus(FetchStatus.Failed));
+      }
+    };

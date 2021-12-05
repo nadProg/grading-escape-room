@@ -1,10 +1,10 @@
+import { useRouteMatch } from 'react-router';
+import { MAIN_NAVIGATION_ITEMS } from 'constants/constants';
 import logo from 'assets/img/logo.svg';
-import { mainNavigationItems } from 'constants/constants';
-import { useLocation } from 'react-router';
 import * as S from './header.styled';
 
 const Header: React.FC = () => {
-  const { pathname: currentPath } = useLocation();
+  const { path: currentPath } = useRouteMatch();
 
   return (
     <S.StyledHeader>
@@ -20,7 +20,7 @@ const Header: React.FC = () => {
 
         <S.Navigation>
           <S.Links>
-            {mainNavigationItems.map(({ path, label }) => (
+            {MAIN_NAVIGATION_ITEMS.map(({ path, label }) => (
               <S.LinkItem key={label}>
                 <S.Link $isActiveLink={path === currentPath} to={path}>
                   {label}

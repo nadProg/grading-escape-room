@@ -1,9 +1,9 @@
 import React from 'react';
-import { FilterIcon, FilterTheme, HumanizedFilter } from 'constants/constants';
-import * as S from './filter-tabs.styled';
 import { useDispatch, useSelector } from 'react-redux';
+import { FilterIcon, FilterTheme, HumanizedFilter } from 'constants/constants';
 import { getFilter } from 'store/filter/filter-selector';
 import { setFilter } from 'store/filter/filter-actions';
+import * as S from './filter-tabs.styled';
 
 const FilterTabs: React.FC = () => {
   const currentFilter = useSelector(getFilter);

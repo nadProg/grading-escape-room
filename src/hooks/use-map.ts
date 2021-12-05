@@ -1,32 +1,27 @@
 import { useEffect, useState, MutableRefObject } from 'react';
-import { BaseIconOptions, Icon, Map, Marker, TileLayer } from 'leaflet';
+import {
+  Icon,
+  Map,
+  Marker,
+  TileLayer
+} from 'leaflet';
 import { Point } from '../types/types';
-
-const IconSize = {
-  Width: 48,
-  Height: 61,
-};
-
-const ICON_OPTIONS: BaseIconOptions = {
-  iconUrl: '/img/icon-marker.svg',
-  iconSize: [IconSize.Width, IconSize.Height],
-  iconAnchor: [IconSize.Width / 2, IconSize.Height]
-};
+import { ICON_OPTIONS, TILE_LAYER_OPTIONS, TILE_LAYER_URL } from 'constants/constants';
 
 type UseMapOptions = {
   withMarker?: boolean;
-}
+};
 
 const useMap = (
   mapRef: MutableRefObject<HTMLElement | null>,
   initialPoint: Point,
-  { withMarker }: UseMapOptions = {}
+  { withMarker }: UseMapOptions = {},
 ): Map | null => {
   const [map, setMap] = useState<Map | null>(null);
 
   useEffect(() => {
     if (mapRef.current !== null && map === null) {
-      const {lat, lng, zoom} = initialPoint;
+      const { lat, lng, zoom } = initialPoint;
 
       const instance = new Map(mapRef.current, {
         center: {
@@ -36,32 +31,24 @@ const useMap = (
         zoom,
       });
 
-      const layer = new TileLayer(
-        'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-        {
-          attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        },
-      );
+      const layer = new TileLayer(TILE_LAYER_URL, TILE_LAYER_OPTIONS);
 
       instance.addLayer(layer);
 
       if (withMarker) {
         const marker = new Marker({
-          lat: lat,
-          lng: lng
+          lat,
+          lng,
         });
-
 
         const icon = new Icon(ICON_OPTIONS);
 
         marker.setIcon(icon).addTo(instance);
       }
 
-
       setMap(instance);
     }
-  }, [mapRef, map, initialPoint]);
+  }, [mapRef, map, initialPoint, withMarker]);
 
   return map;
 };

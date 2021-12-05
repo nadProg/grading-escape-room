@@ -1,22 +1,21 @@
 import React, { FormEvent, useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as S from './booking-modal.styled';
-import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
-import { FetchStatus, KeyCode } from 'constants/constants';
+import { adaptBookingDataToServer } from 'services/adapters';
+import { isFetchLoading, isFetchSuccess } from 'utils/utils';
+import { FetchStatus, KeyCode, BookingData } from 'constants/constants';
 import { postOrder } from 'store/order/order-api-actions';
 import { getOrderStatus } from 'store/order/order-selector';
-import { isFetchLoading, isFetchSuccess } from 'utils/utils';
 import { setOrderStatus } from 'store/order/order-actions';
-import { adaptOrderDataToServer } from 'services/adapters';
+import { ReactComponent as IconClose } from 'assets/img/icon-close.svg';
+import * as S from './booking-modal.styled';
 
 type BookingModalProps = {
   onClose: () => void;
 };
 
 const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
-  const formRef = useRef<HTMLFormElement>(null);
   const dispatch = useDispatch();
-
+  const formRef = useRef<HTMLFormElement>(null);
   const orderStatus = useSelector(getOrderStatus);
 
   const onDocumentKeydown = useCallback(({ code }: KeyboardEvent) => {
@@ -46,8 +45,8 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
       return;
     }
 
-    const formData = new FormData(formRef.current);
-    const order = adaptOrderDataToServer(formData);
+    const bookingData = new FormData(formRef.current);
+    const order = adaptBookingDataToServer(bookingData);
 
     dispatch(postOrder(order));
   };
@@ -68,23 +67,23 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
           onSubmit={onFormSubmit}
         >
           <S.BookingField>
-            <S.BookingLabel htmlFor="booking-name">Ваше Имя</S.BookingLabel>
+            <S.BookingLabel htmlFor={BookingData.Name}>Ваше Имя</S.BookingLabel>
             <S.BookingInput
               type="text"
-              id="booking-name"
-              name="booking-name"
+              id={BookingData.Name}
+              name={BookingData.Name}
               placeholder="Имя"
               required
             />
           </S.BookingField>
           <S.BookingField>
-            <S.BookingLabel htmlFor="booking-phone">
+            <S.BookingLabel htmlFor={BookingData.Phone}>
               Контактный телефон
             </S.BookingLabel>
             <S.BookingInput
               type="tel"
-              id="booking-phone"
-              name="booking-phone"
+              id={BookingData.Phone}
+              name={BookingData.Phone}
               placeholder="Телефон"
               pattern="[0-9]{10}"
               title="Номер телефона должен состоять из десяти цифр"
@@ -93,13 +92,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
             />
           </S.BookingField>
           <S.BookingField>
-            <S.BookingLabel htmlFor="booking-people">
+            <S.BookingLabel htmlFor={BookingData.People}>
               Количество участников
             </S.BookingLabel>
             <S.BookingInput
               type="number"
-              id="booking-people"
-              name="booking-people"
+              id={BookingData.People}
+              name={BookingData.People}
               placeholder="Количество участников"
               required
             />
@@ -108,13 +107,13 @@ const BookingModal: React.FC<BookingModalProps> = ({ onClose }) => {
           <S.BookingCheckboxWrapper>
             <S.BookingCheckboxInput
               type="checkbox"
-              id="booking-legal"
-              name="booking-legal"
+              id={BookingData.Legal}
+              name={BookingData.Legal}
               required
             />
             <S.BookingCheckboxLabel
               className="checkbox-label"
-              htmlFor="booking-legal"
+              htmlFor={BookingData.Legal}
             >
               <S.BookingCheckboxText>
                 Я согласен с{' '}

@@ -1,7 +1,7 @@
+import { Quest } from 'types/types';
+import { AppRoute, HumanizedLevel } from 'constants/constants';
 import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
 import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
-import { AppRoute, HumanizedLevel } from 'constants/constants';
-import { Quest } from 'types/types';
 import * as S from './quest-card.styled';
 
 type QuestsCardProps = {

@@ -7,10 +7,7 @@ const NotFound: React.FC = () => (
   <S.Layout>
     <PageTitle>This page does not exist</PageTitle>
     <Message>
-      <Link
-        to={AppRoute.Root()}
-        style={{ color: 'inherit', textDecoration: 'none' }}
-      >
+      <Link to={AppRoute.Root()}>
         Go to main page
       </Link>
     </Message>

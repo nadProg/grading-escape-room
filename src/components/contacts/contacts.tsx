@@ -1,8 +1,8 @@
 import { useRef } from 'react';
 import useMap from 'hooks/use-map';
+import { CONTACT_ADDRESS } from 'constants/constants';
 import { MainLayout, PageTitle, PageSubtext } from 'components/common/common';
 import * as S from './contacts.styled';
-import { CONTACT_ADDRESS } from 'constants/constants';
 import 'leaflet/dist/leaflet.css';
 
 const Contacts: React.FC = () => {

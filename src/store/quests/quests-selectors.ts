@@ -16,14 +16,14 @@ export const getCurrentQuestStatus = ({ quests }: State): FetchStatusType =>
   quests.currentQuest.status;
 
 export const getFilteredQuests = createSelector(
-  [ getAllQuestsData, getFilter ],
-  (quests, filter)=> {
+  [getAllQuestsData, getFilter],
+  (quests, filter) => {
     if (!quests) {
       return [];
     }
 
     if (!filter || filter === FilterTheme.All) {
-      return [ ...quests];
+      return [...quests];
     }
 
     return quests.filter((quest) => quest.theme === filter);

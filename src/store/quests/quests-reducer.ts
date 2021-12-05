@@ -1,5 +1,10 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { setAllQuests, setAllQuestsStatus, setCurrentQuest, setCurrentQuestStatus } from './quests-actions';
+import {
+  setAllQuests,
+  setAllQuestsStatus,
+  setCurrentQuest,
+  setCurrentQuestStatus,
+} from './quests-actions';
 import { questsInitialState } from './quests-initial-state';
 
 const questsReducer = createReducer(questsInitialState, (builder) => {

@@ -1,3 +1,5 @@
+import { BaseIconOptions, TileLayerOptions } from 'leaflet';
+import { Point } from 'types/types';
 import { ValuesOf } from 'utils/utils';
 import { ReactComponent as IconAllQuests } from 'assets/img/icon-all-quests.svg';
 import { ReactComponent as IconAdventures } from 'assets/img/icon-adventures.svg';
@@ -5,7 +7,6 @@ import { ReactComponent as IconHorrors } from 'assets/img/icon-horrors.svg';
 import { ReactComponent as IconMystic } from 'assets/img/icon-mystic.svg';
 import { ReactComponent as IconDetective } from 'assets/img/icon-detective.svg';
 import { ReactComponent as IconSciFi } from 'assets/img/icon-scifi.svg';
-import { Point } from 'types/types';
 
 export const KeyCode = {
   Escape: 'Escape',
@@ -40,7 +41,7 @@ export const ActionType = {
   SetCurrentQuestStatus: 'currentQuest/setStatus',
 } as const;
 
-export const mainNavigationItems = [
+export const MAIN_NAVIGATION_ITEMS = [
   {
     path: AppRoute.Root(),
     label: 'Квесты',
@@ -85,9 +86,9 @@ export const FilterTheme = {
 export const HumanizedLevel: {
   [key in ValuesOf<typeof Level>]: string;
 } = {
-  [Level.Easy]: 'Простой',
-  [Level.Medium]: 'Средний',
-  [Level.Hard]: 'Сложный',
+  [Level.Easy]: 'простой',
+  [Level.Medium]: 'средний',
+  [Level.Hard]: 'сложный',
 };
 
 export const HumanizedTheme: {
@@ -121,3 +122,29 @@ export const CONTACT_ADDRESS: Point = {
   lng: 30.316508091844835,
   zoom: 15.5,
 };
+
+export const TILE_LAYER_URL =
+  'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png';
+
+export const TILE_LAYER_OPTIONS: TileLayerOptions = {
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+};
+
+export const IconSize = {
+  Width: 48,
+  Height: 61,
+} as const;
+
+export const ICON_OPTIONS: BaseIconOptions = {
+  iconUrl: '/img/icon-marker.svg',
+  iconSize: [IconSize.Width, IconSize.Height],
+  iconAnchor: [IconSize.Width / 2, IconSize.Height],
+};
+
+export const BookingData = {
+  Name: 'booking-name',
+  Phone: 'booking-phone',
+  People: 'booking-people',
+  Legal: 'booking-legal',
+} as const;

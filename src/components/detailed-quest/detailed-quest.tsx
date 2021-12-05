@@ -1,20 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Message, MainLayout, Redirect } from 'components/common/common';
-import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
-import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
-import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
-import * as S from './detailed-quest.styled';
-import { BookingModal } from './components/components';
 import { useDispatch, useSelector } from 'react-redux';
+import { useIdParam } from 'hooks/use-id-param';
+import { isFetchError, isFetchIdle, isFetchNotReady, isFetchSuccess } from 'utils/utils';
+import { AppRoute, FetchStatus, HumanizedLevel, HumanizedTheme } from 'constants/constants';
+import { Message, MainLayout, Redirect } from 'components/common/common';
+import { BookingModal } from './components/components';
 import {
   getCurrentQuestData,
   getCurrentQuestStatus,
 } from 'store/quests/quests-selectors';
-import { useIdParam } from 'hooks/use-id-param';
-import { isFetchError, isFetchIdle, isFetchNotReady, isFetchSuccess } from 'utils/utils';
 import { getCurrentQuest } from 'store/quests/quests-api-actions';
-import { AppRoute, FetchStatus, HumanizedLevel, HumanizedTheme } from 'constants/constants';
 import { setCurrentQuestStatus } from 'store/quests/quests-actions';
+import { ReactComponent as IconClock } from 'assets/img/icon-clock.svg';
+import { ReactComponent as IconPerson } from 'assets/img/icon-person.svg';
+import { ReactComponent as IconPuzzle } from 'assets/img/icon-puzzle.svg';
+import * as S from './detailed-quest.styled';
 
 const DetailedQuest: React.FC = () => {
   const { id: questId, error } = useIdParam();
@@ -30,6 +30,10 @@ const DetailedQuest: React.FC = () => {
   const fetchCurrentQuest = (id: number) => {
     dispatch(getCurrentQuest(id));
   };
+
+  useEffect(() => {
+    questStatusRef.current = questStatus;
+  }, [questStatus]);
 
   useEffect(() => {
     if (!questId) {

@@ -1,12 +1,12 @@
-import * as S from './quests-catalog.styled';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
+import { FilterTabs } from '../components';
+import { QuestCard } from '../components';
+import { Message } from 'components/common/common';
 import { getAllQuestsData, getAllQuestsStatus, getFilteredQuests } from 'store/quests/quests-selectors';
 import { getAllQuests } from 'store/quests/quests-api-actions';
-import { useEffect } from 'react';
-import { isFetchError, isFetchIdle, isFetchNotReady } from 'utils/utils';
-import QuestsCard from '../quest-card/quest-card';
-import FilterTabs from '../filter-tabs/filter-tabs';
-import { Message } from 'components/common/common';
+import * as S from './quests-catalog.styled';
 
 const QuestsCatalog: React.FC = () => {
   const allQuestsStatus = useSelector(getAllQuestsStatus);
@@ -39,7 +39,7 @@ const QuestsCatalog: React.FC = () => {
 
       <S.QuestsList>
         {
-          filteredQuests.map((quest) => <QuestsCard key={quest.id} quest={quest} />)
+          filteredQuests.map((quest) => <QuestCard key={quest.id} quest={quest} />)
         }
       </S.QuestsList>
     </>
